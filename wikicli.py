@@ -25,9 +25,6 @@ else:
 	subject = subjectList[0]
 
 try:
-#	print(wikipedia.summary(subject))
-#	page = wikipedia.page("Popee")
-#	print(page.title)
 	p = wikipedia.page(subject, auto_suggest=False)
 	print("====== "+p.title+" ======")
 	if args.full:
