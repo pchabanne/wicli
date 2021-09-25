@@ -1,6 +1,8 @@
 import wikipedia
 import sys
 import argparse
+import urllib.request
+import json
 
 parser = argparse.ArgumentParser()
 parser.add_argument("search", help="The article you search")
@@ -12,9 +14,15 @@ args = parser.parse_args()
 if args.lang:
 	wikipedia.set_lang(args.lang)
 
-
-subjectList = wikipedia.search(args.search)
-subject = subjectList[0]
+if args.search == "random":
+	url = "https://en.wikipedia.org/api/rest_v1/page/random/title"
+	req = urllib.request.Request(url)
+	r = urllib.request.urlopen(req).read()
+	cont = json.loads(r.decode("utf-8"))
+	subject=cont["items"][0]['title']
+else:
+	subjectList = wikipedia.search(args.search)
+	subject = subjectList[0]
 
 try:
 #	print(wikipedia.summary(subject))
