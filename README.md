@@ -1,1 +1,1 @@
-# wikicli
+# wicli
