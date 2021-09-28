@@ -6,8 +6,10 @@ import json
 
 parser = argparse.ArgumentParser()
 parser.add_argument("search", help="The article you search")
+parser.add_argument("random", action="store_true", help="type random to get a random article")
 parser.add_argument("--lang", "-l", type=str,  help="choose language")
 parser.add_argument("--full", "-f", action="store_true", help="if sets, display the full page")
+parser.add_argument("--link", action="store_true", help="if sets, display the link of the article at the end")
 args = parser.parse_args()
 
 lang = "en"
@@ -33,6 +35,11 @@ try:
 		print(p.content)
 	else:
 		print(p.summary)
+	if args.link:
+		title = p.title
+		title = title.replace(" ", "_")
+		print(title)
+		print("https://"+lang+".wikipedia.org/wiki/"+title)
 	
 except wikipedia.exceptions.DisambiguationError as e:
 	print("Too Many results, be more specific")
